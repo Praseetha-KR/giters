@@ -1,0 +1,10 @@
+<!-- {{ vm.users }} -->
+
+<div class="user" ng-repeat="user in vm.users">
+    <a href="{{ user.html_url }}" target="_blank">
+        <div class="user__avatar"><img ng-src="{{ user.avatar_url }}" alt=""></div>
+        <div class="user__username">{{ user.login }}</div>
+    </a>
+</div>
+
+<div ng-if="vm.pagination.next"><button ng-click="vm.loadMoreUsers(vm.pagination.next)">Load more</button></div>
