@@ -1,5 +1,8 @@
-<!-- {{ vm.users }} -->
-
+<div class="search">
+    <label for="search__input--location">Location</label>
+    <input type="text" class="search__input--location" ng-model="vm.locationQuery">
+    <button class="search__submit--location" ng-click="vm.searchLocationUsers(vm.locationQuery)">Search</button>
+</div>
 <div class="user" ng-repeat="user in vm.users">
     <a href="{{ user.html_url }}" target="_blank">
         <div class="user__avatar"><img ng-src="{{ user.avatar_url }}" alt=""></div>

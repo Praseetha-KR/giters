@@ -28,19 +28,21 @@ module.exports = angular.module('gitersApp.giterlist', [
 
 function gitersListController($log, UserFactory, SearchUsersFactory, LinkHeaderProcessor) {
     var vm = this;
-    SearchUsersFactory
-        .query({
-            username: 'Praseetha-KR',
-            location: 'Bangalore'
-        })
-        .then((data) => {
-            vm.data = data;
-            vm.headers = data.$httpHeaders('Link');
-            vm.users = data.items;
-            $log.debug(vm.data, vm.headers);
-            vm.pagination = LinkHeaderProcessor.pagination(vm.headers);
-        })
-        .catch((err) => console.log(err));
+    vm.locationQuery = 'Bangalore';
+    vm.searchLocationUsers = function(location) {
+         SearchUsersFactory
+            .query({
+                location: location
+            })
+            .then((data) => {
+                vm.data = data;
+                vm.headers = data.$httpHeaders('Link');
+                vm.users = data.items;
+                $log.debug(vm.data, vm.headers);
+                vm.pagination = LinkHeaderProcessor.pagination(vm.headers);
+            })
+            .catch((err) => console.log(err));
+    }
     vm.loadMoreUsers = function(nexturl) {
         SearchUsersFactory
             .next(nexturl)
