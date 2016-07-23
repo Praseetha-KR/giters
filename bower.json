@@ -1,0 +1,21 @@
+{
+  "name": "pokedeck",
+  "description": "Pokemon deck implementattion in Angular",
+  "main": "index.js",
+  "authors": [
+    "Praseetha-KR"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "pokemon"
+  ],
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
