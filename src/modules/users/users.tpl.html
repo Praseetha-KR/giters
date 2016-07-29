@@ -1,13 +1,85 @@
-<div class="search">
-    <label for="search__input--location">Location</label>
-    <input type="text" class="search__input--location" ng-model="vm.locationQuery">
-    <button class="search__submit--location" ng-click="vm.searchLocationUsers(vm.locationQuery)">Search</button>
-</div>
-<div class="user" ng-repeat="user in vm.users">
-    <a href="{{ user.html_url }}" target="_blank">
-        <div class="user__avatar"><img ng-src="{{ user.avatar_url }}" alt=""></div>
-        <div class="user__username">{{ user.login }}</div>
-    </a>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Giters</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <form class="navbar-form navbar-right">
+                <div class="form-group">
+                    <label for="search-location">Location</label>
+                    <input type="text" id="search-location" class="form-control" ng-model="vm.locationQuery">
+                    <button class="btn btn-info" ng-click="vm.searchLocationUsers(vm.locationQuery)">Search</button>
+                </div>
+            </form>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <ul class="list-group">
+                <div href="" target="_blank" class="list-group-item" ng-repeat="user in vm.users">
+                    <div class="row">
+                        <div class="col-xs-2">
+                            <img class="img-rounded" width="100%" ng-src="{{ user.avatar_url }}" alt="">
+                        </div>
+                        <div class="col-xs-6">
+                            <h3>{{ vm.userdata[user.login].name }}</h3>
+                            <h4>{{ user.login }} <label ng-if="vm.userdata[user.login].hireable" class="label label-success">Available for hire</label></h4>
+                            <div>{{ vm.userdata[user.login].bio }}</div>
+                            <div ng-if="vm.userdata[user.login].company">
+                                <i class="glyphicon glyphicon-briefcase"></i> {{ vm.userdata[user.login].company }}
+                            </div>
+                            <div ng-if="vm.userdata[user.login].blog">
+                                <i class="glyphicon glyphicon-link"></i> <a href="{{vm.userdata[user.login].blog}}">{{ vm.userdata[user.login].blog }}</a>
+                            </div>
+                            <div><i class="glyphicon glyphicon-globe"></i> {{ vm.userdata[user.login].location }}</div>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <h1>{{ vm.userdata[user.login].public_repos }}</h1>
+                                    <div>Repos</div>
+                                </div>
+                                <div class="col-xs-3">
+                                    <h1>{{ vm.userdata[user.login].public_gists }}</h1>
+                                    <div>Gists</div>
+                                </div>
+                                <div class="col-xs-3">
+                                    <h1>{{ vm.userdata[user.login].followers }}</h1>
+                                    <div>Followers</div>
+                                </div>
+                                <div class="col-xs-3">
+                                    <h1>{{ vm.userdata[user.login].following }}</h1>
+                                    <div>Following</div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <a class="btn btn-default" ng-href="{{ user.html_url }}" target="_blank">View Github Profile</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div ng-if="vm.pagination.next"><button class="btn btn-default" ng-click="vm.loadMoreUsers(vm.pagination.next)">Load more</button></div>
+        </div>
+    </div>
+    <br>
 </div>
 
-<div ng-if="vm.pagination.next"><button ng-click="vm.loadMoreUsers(vm.pagination.next)">Load more</button></div>
+
+

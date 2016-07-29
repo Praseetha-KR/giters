@@ -7,7 +7,7 @@ module.exports = angular.module('gitersApp.giterlist', [
     $stateProvider
         .state('giters', {
             url: '/',
-            template: '<h1>giters</h1><div ui-view></div>',
+            template: '<div ui-view></div>',
         })
         .state('giters.users', {
             url: 'users',
@@ -29,6 +29,15 @@ module.exports = angular.module('gitersApp.giterlist', [
 function gitersListController($log, UserFactory, SearchUsersFactory, LinkHeaderProcessor) {
     var vm = this;
     vm.locationQuery = 'Bangalore';
+    vm.userdata = {};
+    vm.getUserData = function(loginname) {
+        UserFactory.query(loginname)
+            .then((data) => {
+                vm.userdata[loginname] = data;
+                $log.debug(vm.data);
+            })
+            .catch((err) => console.log(err));
+    }
     vm.searchLocationUsers = function(location) {
          SearchUsersFactory
             .query({
@@ -40,6 +49,10 @@ function gitersListController($log, UserFactory, SearchUsersFactory, LinkHeaderP
                 vm.users = data.items;
                 $log.debug(vm.data, vm.headers);
                 vm.pagination = LinkHeaderProcessor.pagination(vm.headers);
+
+                vm.users.map((user) => {
+                    return vm.getUserData(user.login);
+                });
             })
             .catch((err) => console.log(err));
     }
@@ -50,7 +63,14 @@ function gitersListController($log, UserFactory, SearchUsersFactory, LinkHeaderP
                 vm.headers = data.$httpHeaders('Link');
                 vm.users = vm.users.concat(data.items);
                 vm.pagination = LinkHeaderProcessor.pagination(vm.headers);
+
+                vm.users.map((user) => {
+                    return vm.getUserData(user.login);
+                });
             })
             .catch((err) => console.log(err));
     }
+
+
+    vm.searchLocationUsers(vm.locationQuery);
 }
