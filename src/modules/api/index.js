@@ -28,7 +28,8 @@ function LinkHeaderProcessor() {
     }
 }
 function SearchUsersFactory($resource) {
-    var searchUsersResource = $resource('https://api.github.com/search/users?q=location::location+type::type', null, {
+    var baseUrl = 'https://api.github.com/search/users';
+    var queryModifier = {
         query: {
             isArray: false,
             interceptor: {
@@ -38,15 +39,42 @@ function SearchUsersFactory($resource) {
                 }
             }
         }
-    }, {
-        stripTrailingSlashes: false
-    });
+    };
+    var searchUsersResourceAll  = $resource(baseUrl + '?q=type::type+location::location+language::language', null, queryModifier);
+    var searchUsersResourceLoc  = $resource(baseUrl + '?q=type::type+location::location', null, queryModifier);
+    var searchUsersResourceLang = $resource(baseUrl + '?q=type::type+language::language', null, queryModifier);
+    var searchUsersResource     = $resource(baseUrl + '?q=type::type', null, queryModifier);
     return {
         query: (q) => {
-            return searchUsersResource.query({
-                location: q.location,
-                type: 'User'
-            }).$promise;
+            if(q.location && q.language) {
+                return searchUsersResourceAll.query({
+                    type: 'User',
+                    location: q.location,
+                    language: q.language,
+                    sort: q.sort,
+                    order: q.order
+                }).$promise;
+            } else if(q.location) {
+                return searchUsersResourceLoc.query({
+                    type: 'User',
+                    location: q.location,
+                    sort: q.sort,
+                    order: q.order
+                }).$promise;
+            } else if(q.language) {
+                return searchUsersResourceLang.query({
+                    type: 'User',
+                    language: q.language,
+                    sort: q.sort,
+                    order: q.order
+                }).$promise;
+            } else {
+                return searchUsersResource.query({
+                    type: 'User',
+                    sort: q.sort,
+                    order: q.order
+                }).$promise;
+            }
         },
         next: (url) => {
             var page = url.split('?page=')[1];

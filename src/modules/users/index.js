@@ -10,10 +10,10 @@ module.exports = angular.module('gitersApp.giterlist', [
             template: '<div ui-view></div>',
         })
         .state('giters.users', {
-            url: 'users',
-            templateUrl: 'modules/users/users.tpl.html',
-            controller: 'gitersListController',
-            controllerAs: 'vm',
+            url             : 'users',
+            templateUrl     : 'modules/users/users.tpl.html',
+            controller      : 'gitersListController',
+            controllerAs    : 'vm',
             bindToController: true
         });
 })
@@ -26,10 +26,25 @@ module.exports = angular.module('gitersApp.giterlist', [
     gitersListController
 ]);
 
+
 function gitersListController($log, UserFactory, SearchUsersFactory, LinkHeaderProcessor) {
-    var vm = this;
+    var vm           = this;
     vm.locationQuery = 'Bangalore';
-    vm.userdata = {};
+    vm.userdata      = {};
+    vm.resultCount   = 0;
+    vm.queried       = {};
+    vm.query = {
+        location     : '',
+        language     : '',
+        sort         : 'joined',
+        order        : 'asc'
+    };
+    vm.sortFilter = {
+        folloers     : 'Follower count',
+        repositories : 'Repository count',
+        joined       : 'Joining date'
+    };
+
     vm.getUserData = function(loginname) {
         UserFactory.query(loginname)
             .then((data) => {
@@ -38,21 +53,28 @@ function gitersListController($log, UserFactory, SearchUsersFactory, LinkHeaderP
             })
             .catch((err) => console.log(err));
     }
-    vm.searchLocationUsers = function(location) {
-         SearchUsersFactory
+    vm.searchUsers = function(q) {
+        $log.debug(q);
+        vm.queried = angular.copy(q);
+
+        SearchUsersFactory
             .query({
-                location: location
+                location    : q.location,
+                language    : q.language,
+                sort        : q.sort,
+                order       : q.order
             })
             .then((data) => {
-                vm.data = data;
-                vm.headers = data.$httpHeaders('Link');
-                vm.users = data.items;
+                vm.data         = data;
+                vm.headers      = data.$httpHeaders('Link');
+                vm.users        = data.items;
+                vm.resultCount  = data.total_count;
+                vm.pagination   = LinkHeaderProcessor.pagination(vm.headers);
                 $log.debug(vm.data, vm.headers);
-                vm.pagination = LinkHeaderProcessor.pagination(vm.headers);
 
-                vm.users.map((user) => {
-                    return vm.getUserData(user.login);
-                });
+                // vm.users.map((user) => {
+                //     return vm.getUserData(user.login);
+                // });
             })
             .catch((err) => console.log(err));
     }
@@ -60,9 +82,9 @@ function gitersListController($log, UserFactory, SearchUsersFactory, LinkHeaderP
         SearchUsersFactory
             .next(nexturl)
             .then((data) => {
-                vm.headers = data.$httpHeaders('Link');
-                vm.users = vm.users.concat(data.items);
-                vm.pagination = LinkHeaderProcessor.pagination(vm.headers);
+                vm.headers      = data.$httpHeaders('Link');
+                vm.users        = vm.users.concat(data.items);
+                vm.pagination   = LinkHeaderProcessor.pagination(vm.headers);
 
                 vm.users.map((user) => {
                     return vm.getUserData(user.login);
@@ -70,7 +92,5 @@ function gitersListController($log, UserFactory, SearchUsersFactory, LinkHeaderP
             })
             .catch((err) => console.log(err));
     }
-
-
-    vm.searchLocationUsers(vm.locationQuery);
+    vm.searchUsers(vm.query);
 }

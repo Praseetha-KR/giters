@@ -13,17 +13,40 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <form class="navbar-form navbar-right">
                 <div class="form-group">
-                    <label for="search-location">Location</label>
-                    <input type="text" id="search-location" class="form-control" ng-model="vm.locationQuery">
-                    <button class="btn btn-info" ng-click="vm.searchLocationUsers(vm.locationQuery)">Search</button>
+                    <label for="q-location"><span class="glyphicon glyphicon-map-marker"></span> Location</label>
+                    <input type="text" id="q-location" class="form-control" ng-model="vm.query.location">
+                </div>
+                <div class="form-group">
+                    <label for="q-language"><span class="glyphicon glyphicon-console"></span> Language</label>
+                    <input type="text" id="q-language" class="form-control" ng-model="vm.query.language">
+                </div>
+                <label for="q-sort"><span class="glyphicon glyphicon-filter"></span> Sort by</label>
+                <select id="q-sort" class="form-control" ng-model="vm.query.sort">
+                    <option value="{{ key }}" ng-repeat="(key, val) in vm.sortFilter">{{ val }}</option>
+                </select>
+                <div class="btn-group" data-toggle="buttons">
+                    <label class="btn btn-default" ng-class="{ active: vm.query.order == 'desc' }">
+                        <input type="radio" name="options" ng-click="vm.query.order = 'desc'" ng-checked="vm.query.order == 'desc'"> <span class="glyphicon glyphicon-sort-by-attributes-alt"></span>
+                    </label>
+                    <label class="btn btn-default" ng-class="{ active: vm.query.order == 'asc' }">
+                        <input type="radio" name="options" ng-click="vm.query.order = 'asc'" ng-checked="vm.query.order == 'asc'"> <span class="glyphicon glyphicon-sort-by-attributes"></span>
+                    </label>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-info" ng-click="vm.searchUsers(vm.query)">Search</button>
                 </div>
             </form>
-        </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
+        </div>
+    </div>
 </nav>
 
 <div class="container">
     <div class="row">
+        <div class="col-xs-12" ng-if="vm.resultCount">
+            <div class="alert alert-info">
+                Showing <strong>{{ vm.resultCount }}</strong> giters sorted by <strong>{{ vm.sortFilter[vm.queried.sort] }}</strong> <span ng-if="vm.queried.language"> with expertise in <strong>{{ vm.queried.language }}</strong></span> <span ng-if="vm.queried.location"> located in <strong>{{ vm.queried.location }}</strong></span>
+            </div>
+        </div>
         <div class="col-xs-12">
             <ul class="list-group">
                 <div href="" target="_blank" class="list-group-item" ng-repeat="user in vm.users">
