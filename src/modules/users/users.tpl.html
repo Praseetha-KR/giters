@@ -44,7 +44,7 @@
     <div class="row">
         <div class="col-xs-12" ng-if="vm.resultCount">
             <div class="alert alert-info">
-                Showing <strong>{{ vm.resultCount }}</strong> giters sorted by <strong>{{ vm.sortFilter[vm.queried.sort] }}</strong> <span ng-if="vm.queried.language"> with expertise in <strong>{{ vm.queried.language }}</strong></span> <span ng-if="vm.queried.location"> located in <strong>{{ vm.queried.location }}</strong></span>
+                Showing <strong>{{ vm.resultCount }}</strong> giters sorted by <strong>{{ vm.sortFilter[vm.queried.sort] }}</strong> <span ng-if="vm.queried.order"> in <strong>{{ vm.queried.order }}ending</strong> order</span> <span ng-if="vm.queried.language"> with expertise in <strong>{{ vm.queried.language }}</strong></span> <span ng-if="vm.queried.location"> located in <strong>{{ vm.queried.location }}</strong></span>
             </div>
         </div>
         <div class="col-xs-12">
@@ -77,11 +77,11 @@
                                     <div>Gists</div>
                                 </div>
                                 <div class="col-xs-3">
-                                    <h1>{{ vm.userdata[user.login].followers }}</h1>
+                                    <h1>{{ vm.userdata[user.login].followers | kFormat }}</h1>
                                     <div>Followers</div>
                                 </div>
                                 <div class="col-xs-3">
-                                    <h1>{{ vm.userdata[user.login].following }}</h1>
+                                    <h1>{{ vm.userdata[user.login].following | kFormat }}</h1>
                                     <div>Following</div>
                                 </div>
                             </div>

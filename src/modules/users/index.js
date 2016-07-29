@@ -1,7 +1,8 @@
 'use strict';
 
 module.exports = angular.module('gitersApp.giterlist', [
-    'ui.router'
+    'ui.router',
+    require('../components/kFormat').name
 ])
 .config(($stateProvider) => {
     $stateProvider
@@ -72,9 +73,9 @@ function gitersListController($log, UserFactory, SearchUsersFactory, LinkHeaderP
                 vm.pagination   = LinkHeaderProcessor.pagination(vm.headers);
                 $log.debug(vm.data, vm.headers);
 
-                // vm.users.map((user) => {
-                //     return vm.getUserData(user.login);
-                // });
+                vm.users.map((user) => {
+                    return vm.getUserData(user.login);
+                });
             })
             .catch((err) => console.log(err));
     }
