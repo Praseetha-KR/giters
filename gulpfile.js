@@ -22,7 +22,6 @@ function compilejs(watch) {
         bundler.bundle()
             .on('error', (err) => {
                 console.log(err);
-                // this.emit('end');
             })
             .pipe(source('app.js'))
             .pipe(buffer())

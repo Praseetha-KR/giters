@@ -1,17 +1,19 @@
 {
-  "name": "pokedeck",
+  "name": "Giters",
   "version": "0.0.1",
-  "description": "Pokemon deck implementattion in Angular",
+  "description": "Git(hub)ers search interface",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Praseetha-KR"
+    "url": "https://github.com/Praseetha-KR/giters.git"
   },
   "keywords": [
-    "pokemon"
+    "github",
+    "search",
+    "angular"
   ],
   "author": "Praseetha-KR",
   "license": "MIT",
