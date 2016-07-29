@@ -14,3 +14,6 @@ bower install
 gulp
 ```
 Now listen on [http://localhost:9999/build/#/users](http://localhost:9999/build/#/users)
+
+
+![screenshot](screenshot/giters_screenshot.jpg)

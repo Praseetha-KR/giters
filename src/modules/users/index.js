@@ -30,7 +30,6 @@ module.exports = angular.module('gitersApp.giterlist', [
 
 function gitersListController($log, UserFactory, SearchUsersFactory, LinkHeaderProcessor) {
     var vm           = this;
-    vm.locationQuery = 'Bangalore';
     vm.userdata      = {};
     vm.resultCount   = 0;
     vm.queried       = {};
