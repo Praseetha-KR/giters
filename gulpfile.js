@@ -10,6 +10,8 @@ var gulp = require('gulp'),
     babelify = require('babelify'),
     htmlreplace = require('gulp-html-replace');
 
+var karmaServer = require('karma').Server;
+
 var gc = require('./gulpconfig');
 
 function compilejs(watch) {
@@ -74,6 +76,13 @@ gulp.task('server', () => {
         port: 9999,
         livereload: true
     });
+});
+
+gulp.task('test', (done) => {
+    new karmaServer({
+        configFile: __dirname + '/karma.conf.js',
+        singleRun: true
+    }, done).start();
 });
 
 gulp.task('default', ['server', 'html', 'watch']);
