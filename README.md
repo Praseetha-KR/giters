@@ -1,7 +1,7 @@
 # giters
 Git(hub)ers search interface
 
-[![Build status][travis-image]][travis-url]
+[![Build Status](https://travis-ci.org/Praseetha-KR/giters.svg?branch=master)](https://travis-ci.org/Praseetha-KR/giters)
 
 Search Giters based on **location** & **language**, sort by **repositories count**/**followers count**/**joining date** in **asc**/**desc** order.
 
