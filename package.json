@@ -4,7 +4,9 @@
   "description": "Git(hub)ers search interface",
   "main": "index.js",
   "scripts": {
-    "test": "gulp test"
+    "test": "gulp test",
+    "test-ci": "istanbul cover node_modules/mocha/bin/_mocha --report lcovonly -- --reporter spec --check-leaks src/tests/**/*",
+    "test-cov": "istanbul cover node_modules/mocha/bin/_mocha --report text --report text-summary --report html -- --reporter spec --check-leaks src/tests/**/*",
   },
   "repository": {
     "type": "git",
