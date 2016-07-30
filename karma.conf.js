@@ -39,12 +39,15 @@ module.exports = function(config) {
         // available reporters: https://npmjs.org/browse/keyword/karma-reporter
         reporters: ['progress', 'coverage'],
 
+        browserify: {
+            debug: true,
+            transform: ['browserify-istanbul']
+        },
 
         coverageReporter: {
-            dir: './coverage/',
             reporters: [
-                { type: 'lcov'},
-                { type: 'text'},
+                { type: 'lcov' },
+                { type: 'text' },
             ]
         },
 
