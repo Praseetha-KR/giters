@@ -5,6 +5,6 @@ module.exports = angular.module('kFormat', [])
         if (number >= 10000) {
             return (number / 1000).toFixed(1) + 'K';
         }
-        return number;
+        return number.toString();
     };
 });

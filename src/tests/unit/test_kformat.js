@@ -22,7 +22,7 @@ describe('kFormat component', function() {
     it('should not format to K unit for numbers < 10000', function() {
         var num = 9999, result,
         result = $filter('kFormat')(num, 'kFormat');
-        result.should.containEql(9999);
+        result.should.containEql('9999');
     });
     it('should floor succeeding decimal digit >= 5', function() {
         var num = 12354, result,
