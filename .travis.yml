@@ -10,4 +10,4 @@ before_script:
     - 'bower install'
 after_script:
     - 'npm test'
-    - 'gulp coveralls'
+    - 'gulp coverage'

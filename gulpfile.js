@@ -87,6 +87,7 @@ gulp.task('test', (done) => {
 });
 
 gulp.task('coverage', () => {
+    if (!process.env.CI) return;
     return gulp.src('./coverage/lcov.info')
             .pipe(coveralls());
 });
