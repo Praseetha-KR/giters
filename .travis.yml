@@ -5,9 +5,9 @@ before_script:
     - 'export CHROME_BIN=chromium-browser'
     - 'export DISPLAY=:99.0'
     - 'sh -e /etc/init.d/xvfb start'
-    - 'npm install -g bower gulp-cli'
+    - 'npm install -g bower gulp-cli istanbul'
     - 'npm install'
     - 'bower install'
 after_script:
     - 'npm test'
-    - 'NODE_ENV=cat coverage/lcov.info | node_modules/coveralls/bin/coveralls.js && rm -rf coverage'
+    - 'istanbul cover src/tests/**/*.js'
