@@ -8,7 +8,8 @@ var gulp = require('gulp'),
     browserify = require('browserify'),
     watchify = require('watchify'),
     babelify = require('babelify'),
-    htmlreplace = require('gulp-html-replace');
+    htmlreplace = require('gulp-html-replace'),
+    coveralls = require('gulp-coveralls');
 
 var karmaServer = require('karma').Server;
 
@@ -83,6 +84,11 @@ gulp.task('test', (done) => {
         configFile: __dirname + '/karma.conf.js',
         singleRun: true
     }, done).start();
+});
+
+gulp.task('coverage', () => {
+    return gulp.src('./coverage/lcov.info')
+            .pipe(coveralls());
 });
 
 gulp.task('default', ['server', 'html', 'watch']);

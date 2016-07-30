@@ -4,9 +4,7 @@
   "description": "Git(hub)ers search interface",
   "main": "index.js",
   "scripts": {
-    "test": "gulp test",
-    "test-ci": "istanbul cover node_modules/mocha/bin/_mocha --report lcovonly -- --reporter spec --check-leaks src/tests/**/*",
-    "test-cov": "istanbul cover node_modules/mocha/bin/_mocha --report text --report text-summary --report html -- --reporter spec --check-leaks src/tests/**/*"
+    "test": "gulp test"
   },
   "repository": {
     "type": "git",
@@ -30,6 +28,7 @@
     "connect-history-api-fallback": "^1.2.0",
     "coveralls": "^2.11.12",
     "gulp-connect": "^4.2.0",
+    "gulp-coveralls": "^0.1.4",
     "gulp-html-replace": "^1.6.1",
     "gulp-sourcemaps": "^1.6.0",
     "istanbul": "^0.4.4",
