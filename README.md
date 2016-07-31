@@ -11,6 +11,7 @@ Implemented with AngularJS (1.5.*)
 
 ###How to setup & run
 ```
+npm install -g bower gulp-cli
 npm install
 bower install
 ```
@@ -21,3 +22,15 @@ Now listen on [http://localhost:9999/build/#/users](http://localhost:9999/build/
 
 
 ![screenshot](screenshot/giters_screenshot.jpg)
+
+###Running tests
+For single run:
+```
+npm test
+```
+For watch:
+```
+karma start karma.conf.js
+```
+
+&copy; [MIT](https://github.com/Praseetha-KR/giters/blob/master/LICENSE) Licence
